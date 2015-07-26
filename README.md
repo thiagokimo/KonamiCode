@@ -4,7 +4,7 @@ KONAMI IMAGE
 
 ##Preview
 ###Demo
-TODO
+[![Get it on Google Play](http://www.android.com/images/brand/get_it_on_play_logo_small.png)](#)
 
 ###Screenshots
 TODO
@@ -29,7 +29,7 @@ new KonamiCode.Builder(context)
 
 ##Developed by
 
-* Thiago Rocha - http://kimo.io - <kimo@Kimo.io>
+* Thiago Rocha - http://kimo.io - <kimo@kimo.io>
 
 ##License
 
