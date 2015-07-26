@@ -85,7 +85,7 @@ public class KonamiCode {
         protected Callback callback = new Callback() {
             @Override
             public void onFinish() {
-                Toast.makeText(context, "Konami Code!", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, R.string.default_callback_msg, Toast.LENGTH_LONG).show();
                 dialog.dismiss();
             }
         };

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">KonamiCode</string>
+    <string name="default_callback_msg">Konami Code!</string>
 </resources>
