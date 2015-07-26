@@ -9,6 +9,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import io.kimo.konamicode.listener.ButtonsListener;
@@ -133,7 +134,7 @@ public class KonamiCode {
 
         private void configureButtonsDialog() {
 
-            View buttonsView = LayoutInflater.from(context).inflate(R.layout.dialog_buttons, null);
+            View buttonsView = LayoutInflater.from(context).inflate(R.layout.dialog_buttons, (ViewGroup) view, false);
 
             View aButton = buttonsView.findViewById(R.id.konami_button_a);
             View bButton = buttonsView.findViewById(R.id.konami_button_b);
