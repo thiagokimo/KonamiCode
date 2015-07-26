@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Konami</string>
+
+    <string name="swipe_help">Swipe into the following directions:\n&#8593;&#8593;&#8595;&#8595;&#8592;&#8594;&#8592;&#8594;</string>
+    <string name="buttons_help">Press the buttons in the order:\nA, B and START</string>
+
+</resources>

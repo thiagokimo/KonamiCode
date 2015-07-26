@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/konami_button_a"
+            android:text="A"
+            android:layout_margin="16dp"
+            android:layout_width="56dp"
+            android:layout_height="56dp" />
+
+        <Button
+            android:id="@+id/konami_button_b"
+            android:text="B"
+            android:layout_margin="16dp"
+            android:layout_width="56dp"
+            android:layout_height="56dp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/konami_button_start"
+        android:text="START"
+        android:layout_margin="16dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"/>
+
+</LinearLayout>
