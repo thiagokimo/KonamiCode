@@ -1,6 +1,6 @@
 Easy install of our favorite easter-egg!
 
-KONAMI IMAGE
+![konami-code-tutorial](http://choconatos.com/home/wp-content/uploads/2013/11/Konami-Code.jpg)
 
 ##Preview
 ###Demo
@@ -10,13 +10,70 @@ KONAMI IMAGE
 
 
 ##Inculde in your project
-to do
+###Gradle
 
+Add the JitPack repository to your build file:
+
+``` groovy
+repositories {
+    maven {
+	    url "https://jitpack.io"
+	}
+}
+```
+
+Add the dependency in the form:
+
+```groovy
+dependencies {
+    compile 'com.github.thiagokimo:konami-code:1.0'
+}
+```
+
+###Maven
+
+If you use Maven, add this into your build file:
+
+``` xml
+<repository>
+    <id>jitpack.io</id>
+	<url>https://jitpack.io</url>
+</repository>
+```
+
+And them this into your dependencies
+``` xml
+<dependency>
+    <groupId>com.github.thiagokimo</groupId>
+    <artifactId>konami-code</artifactId>
+	<version>1.0</version>
+</dependency>
+```
 ##How to use
+
+Add the following code in your Activity:
 
 ``` java
 new KonamiCode.Builder(context)
         .into(activity-or-fragment-or-view)
+        .install();
+```
+
+For the first part of the Konami code, swipe into the correct directions. If you do it correctly,
+an AlertDialog with the buttons **A**, **B** and **START** will appear. Pressing them correctly will
+trigger the final callback.
+
+By default a callback with a Toast message will appear. You can customize the final callback by yourself:
+
+``` java
+new KonamiCode.Builder(context)
+        .into(activity-or-fragment-or-view)
+        .withCallback(new KonamiCode.Callback() {
+            @Override
+            public void onFinish() {
+                //whatever
+            }
+        })
         .install();
 ```
 
