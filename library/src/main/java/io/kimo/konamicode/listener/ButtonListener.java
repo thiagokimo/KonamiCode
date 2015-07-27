@@ -12,7 +12,12 @@ import io.kimo.konamicode.KonamiCode;
 import io.kimo.konamicode.R;
 import io.kimo.konamicode.SequenceListener;
 
-public class ButtonsListener implements SequenceListener {
+/**
+ * ButtonListener
+ *
+ * Detects the correct sequence of Konami Code's button execution: B, A and START
+ */
+public class ButtonListener implements SequenceListener {
 
     public enum KonamiButton {
         A, B, START
@@ -43,7 +48,7 @@ public class ButtonsListener implements SequenceListener {
         }
     };
 
-    public ButtonsListener(@NonNull View a, @NonNull View b, @NonNull View start, @NonNull AlertDialog dialog, @NonNull KonamiCode.Callback callback) {
+    public ButtonListener(@NonNull View a, @NonNull View b, @NonNull View start, @NonNull AlertDialog dialog, @NonNull KonamiCode.Callback callback) {
         this.a = a;
         this.b = b;
         this.start = start;
@@ -51,26 +56,6 @@ public class ButtonsListener implements SequenceListener {
         this.callback = callback;
 
         configure();
-    }
-
-    public View getAButton() {
-        return a;
-    }
-
-    public View getBButton() {
-        return b;
-    }
-
-    public KonamiCode.Callback getCallback() {
-        return callback;
-    }
-
-    public AlertDialog getDialog() {
-        return dialog;
-    }
-
-    public View getStartButton() {
-        return start;
     }
 
     @Override

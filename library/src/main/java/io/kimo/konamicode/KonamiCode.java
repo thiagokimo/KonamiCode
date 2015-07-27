@@ -12,26 +12,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import io.kimo.konamicode.listener.ButtonsListener;
+import io.kimo.konamicode.listener.ButtonListener;
 import io.kimo.konamicode.listener.DirectionListener;
 
 public class KonamiCode {
 
     private Context mContext;
     private View mView;
-    private AlertDialog mButtonsDialog;
+    private AlertDialog mButtonDialog;
     private int mSwipeThreshold;
     private int mSwipeVelocityThreshold;
     private DirectionListener mDirectionsListener;
-    private ButtonsListener mButtonsListener;
+    private ButtonListener mButtonListener;
     private Callback mCallback;
 
-    public AlertDialog getButtonsDialog() {
-        return mButtonsDialog;
+    public AlertDialog getButtonDialog() {
+        return mButtonDialog;
     }
 
-    public ButtonsListener getButtonsListener() {
-        return mButtonsListener;
+    public ButtonListener getButtonListener() {
+        return mButtonListener;
     }
 
     public Callback getCallback() {
@@ -64,8 +64,8 @@ public class KonamiCode {
         this.mSwipeThreshold = builder.swipeThreshold;
         this.mSwipeVelocityThreshold = builder.swipeVelocityThreshold;
         this.mDirectionsListener = builder.directionsListener;
-        this.mButtonsListener = builder.buttonsListener;
-        this.mButtonsDialog = builder.dialog;
+        this.mButtonListener = builder.buttonListener;
+        this.mButtonDialog = builder.dialog;
         this.mCallback = builder.callback;
     }
 
@@ -78,7 +78,7 @@ public class KonamiCode {
         protected Context context;
         protected View view;
         protected DirectionListener directionsListener;
-        protected ButtonsListener buttonsListener;
+        protected ButtonListener buttonListener;
         protected int swipeThreshold = DEFAULT_THRESHOLD_VALUE;
         protected int swipeVelocityThreshold = DEFAULT_THRESHOLD_VALUE;
         protected AlertDialog dialog;
@@ -90,40 +90,71 @@ public class KonamiCode {
             }
         };
 
+        /**
+         * Konami Code's builder
+         * @param context
+         */
         public Builder(@NonNull Context context) {
             this.context = context;
         }
 
+        /**
+         * into - installs into an activity
+         * @param activity
+         */
         public Builder into(@NonNull Activity activity) {
             view = activity.findViewById(android.R.id.content);
             return this;
         }
 
+        /**
+         * into - installs into a fragment
+         * @param fragment
+         */
         public Builder into(@NonNull Fragment fragment) {
             view = fragment.getView();
             return this;
         }
 
+        /**
+         * into - installs into a view
+         * @param view
+         */
         public Builder into(@NonNull View view) {
             this.view = view;
             return this;
         }
 
+        /**
+         * withSwipeThreshold - distance of the swipe movment
+         * @param value
+         */
         public Builder withSwipeThreshold(int value) {
             swipeThreshold = value;
             return this;
         }
 
+        /**
+         * withSwipeVelocityThreshold - speed of the swipe movment
+         * @param value
+         */
         public Builder withSwipeVelocityThreshold(int value) {
             swipeVelocityThreshold = value;
             return this;
         }
 
+        /**
+         * withCallback - interface executed after the whole code is executed
+         * @param callback
+         */
         public Builder withCallback(@NonNull Callback callback) {
             this.callback = callback;
             return this;
         }
 
+        /**
+         * install - installs all Konami Code components into the target
+         */
         public KonamiCode install() {
 
             configureButtonsDialog();
@@ -144,7 +175,7 @@ public class KonamiCode {
                     .setView(buttonsView)
                     .create();
 
-            buttonsListener = new ButtonsListener(aButton, bButton, startButton, dialog, callback);
+            buttonListener = new ButtonListener(aButton, bButton, startButton, dialog, callback);
         }
 
         private void configureGestureListener() {
@@ -160,6 +191,9 @@ public class KonamiCode {
         }
     }
 
+    /**
+     * Callback - Interface that's executed when the code finishes
+     */
     public interface Callback {
         void onFinish();
     }
