@@ -10,6 +10,11 @@ import java.util.List;
 
 import io.kimo.konamicode.SequenceListener;
 
+/**
+ * DirectionListener
+ *
+ * Detects a sequence of Konami Code's swipe directions: UP, UP, DOWN, DOWN, LEFT, RIGHT, LEFT, RIGHT
+ */
 public class DirectionListener extends GestureDetector.SimpleOnGestureListener implements SequenceListener {
 
     public enum Direction {
