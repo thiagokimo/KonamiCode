@@ -13,24 +13,21 @@
 
         <Button
             android:id="@+id/konami_button_a"
-            android:text="A"
-            android:layout_margin="16dp"
-            android:layout_width="56dp"
-            android:layout_height="56dp" />
+            android:background="@drawable/btn_selector_a"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <Button
             android:id="@+id/konami_button_b"
-            android:text="B"
-            android:layout_margin="16dp"
-            android:layout_width="56dp"
-            android:layout_height="56dp" />
+            android:background="@drawable/btn_selector_b"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
     <Button
         android:id="@+id/konami_button_start"
-        android:text="START"
-        android:layout_margin="16dp"
-        android:layout_width="80dp"
-        android:layout_height="80dp"/>
+        android:background="@drawable/btn_selector_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>
