@@ -6,7 +6,7 @@ KONAMI IMAGE
 ###Demo
 [![Get it on Google Play](http://www.android.com/images/brand/get_it_on_play_logo_small.png)](https://play.google.com/store/apps/details?id=io.kimo.konami)
 
-[![Thumbnail from youtube](http://img.youtube.com/vi/2xbseI3wP_s/3.jpg =800x600)](https://www.youtube.com/watch?v=2xbseI3wP_s)
+[![Thumbnail from youtube](http://i.stack.imgur.com/LT3WE.png)](https://www.youtube.com/watch?v=2xbseI3wP_s)
 
 
 ##Inculde in your project
