@@ -26,7 +26,7 @@ Add the dependency in the form:
 
 ```groovy
 dependencies {
-    compile 'com.github.thiagokimo:konami-code:1.0'
+    compile 'com.github.thiagokimo:KonamiCode:1.0'
 }
 ```
 
