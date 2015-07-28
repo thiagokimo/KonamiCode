@@ -78,6 +78,9 @@ new KonamiCode.Builder(context)
         .install();
 ```
 
+###Attention
+Make sure you add this **AFTER** your view is set, otherwise it won't listen to your swipes. KonamiCode adds a swipe listener into the root view of your Activity.
+
 ##Contribuiting
 
 1. Fork it
