@@ -2,8 +2,9 @@ Easy install of our favorite easter-egg!
 
 ![konami-code-tutorial](http://choconatos.com/home/wp-content/uploads/2013/11/Konami-Code.jpg)
 
+![JitPack Badge](https://img.shields.io/github/release/thiagokimo/KonamiCode.svg?label=JitPack)
+
 ##Preview
-###Demo
 [![Get it on Google Play](http://www.android.com/images/brand/get_it_on_play_logo_small.png)](https://play.google.com/store/apps/details?id=io.kimo.konami)
 
 [![Thumbnail from youtube](http://i.stack.imgur.com/LT3WE.png)](https://www.youtube.com/watch?v=2xbseI3wP_s)
@@ -26,7 +27,7 @@ Add the dependency in the form:
 
 ```groovy
 dependencies {
-    compile 'com.github.thiagokimo:konami-code:1.0'
+    compile 'com.github.thiagokimo:KonamiCode:1.0'
 }
 ```
 
