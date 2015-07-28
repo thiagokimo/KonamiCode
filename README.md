@@ -27,7 +27,7 @@ Add the dependency in the form:
 
 ```groovy
 dependencies {
-    compile 'com.github.thiagokimo:KonamiCode:1.0'
+    compile 'com.github.thiagokimo:KonamiCode:1.1'
 }
 ```
 
@@ -47,7 +47,7 @@ And them this into your dependencies
 <dependency>
     <groupId>com.github.thiagokimo</groupId>
     <artifactId>konami-code</artifactId>
-	<version>1.0</version>
+	<version>1.1</version>
 </dependency>
 ```
 ##How to use
