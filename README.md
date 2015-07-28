@@ -3,6 +3,7 @@ Easy install of our favorite easter-egg!
 ![konami-code-tutorial](http://choconatos.com/home/wp-content/uploads/2013/11/Konami-Code.jpg)
 
 ![JitPack Badge](https://img.shields.io/github/release/thiagokimo/KonamiCode.svg?label=JitPack)
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-KonamiCode-green.svg?style=flat)](https://android-arsenal.com/details/1/2202)
 
 ##Preview
 [![Get it on Google Play](http://www.android.com/images/brand/get_it_on_play_logo_small.png)](https://play.google.com/store/apps/details?id=io.kimo.konami)
