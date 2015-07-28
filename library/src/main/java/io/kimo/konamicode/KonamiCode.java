@@ -18,7 +18,7 @@ import io.kimo.konamicode.listener.DirectionListener;
 public class KonamiCode {
 
     private Context mContext;
-    private View mView;
+    private ViewGroup mRootView;
     private AlertDialog mButtonDialog;
     private int mSwipeThreshold;
     private int mSwipeVelocityThreshold;
@@ -54,13 +54,13 @@ public class KonamiCode {
         return mSwipeVelocityThreshold;
     }
 
-    public View getView() {
-        return mView;
+    public ViewGroup getRootView() {
+        return mRootView;
     }
 
     private KonamiCode(@NonNull Builder builder) {
         this.mContext = builder.context;
-        this.mView = builder.view;
+        this.mRootView = builder.rootView;
         this.mSwipeThreshold = builder.swipeThreshold;
         this.mSwipeVelocityThreshold = builder.swipeVelocityThreshold;
         this.mDirectionsListener = builder.directionsListener;
@@ -76,7 +76,7 @@ public class KonamiCode {
         private GestureDetectorCompat gestureListener;
 
         protected Context context;
-        protected View view;
+        protected ViewGroup rootView;
         protected DirectionListener directionsListener;
         protected ButtonListener buttonListener;
         protected int swipeThreshold = DEFAULT_THRESHOLD_VALUE;
@@ -103,7 +103,7 @@ public class KonamiCode {
          * @param activity
          */
         public Builder into(@NonNull Activity activity) {
-            view = activity.findViewById(android.R.id.content);
+            rootView = (ViewGroup) activity.findViewById(android.R.id.content);
             return this;
         }
 
@@ -112,7 +112,7 @@ public class KonamiCode {
          * @param fragment
          */
         public Builder into(@NonNull Fragment fragment) {
-            view = fragment.getView();
+            rootView = (ViewGroup) fragment.getView().getRootView();
             return this;
         }
 
@@ -121,7 +121,7 @@ public class KonamiCode {
          * @param view
          */
         public Builder into(@NonNull View view) {
-            this.view = view;
+            rootView = (ViewGroup) view.getRootView();
             return this;
         }
 
@@ -165,7 +165,7 @@ public class KonamiCode {
 
         private void configureButtonsDialog() {
 
-            View buttonsView = LayoutInflater.from(context).inflate(R.layout.dialog_buttons, (ViewGroup) view, false);
+            View buttonsView = LayoutInflater.from(context).inflate(R.layout.dialog_buttons, rootView, false);
 
             View aButton = buttonsView.findViewById(R.id.konami_button_a);
             View bButton = buttonsView.findViewById(R.id.konami_button_b);
@@ -181,7 +181,10 @@ public class KonamiCode {
         private void configureGestureListener() {
             directionsListener = new DirectionListener(dialog, swipeThreshold, swipeVelocityThreshold);
             gestureListener  = new GestureDetectorCompat(context, directionsListener);
-            view.setOnTouchListener(new View.OnTouchListener() {
+
+            // get the first child of the root view
+            View targetView = rootView.getChildAt(0);
+            targetView.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
                     gestureListener.onTouchEvent(event);
