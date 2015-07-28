@@ -5,6 +5,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GestureDetectorCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -89,6 +90,7 @@ public class KonamiCode {
                 dialog.dismiss();
             }
         };
+        protected boolean hasDrawerLayout;
 
         /**
          * Konami Code's builder
@@ -122,6 +124,11 @@ public class KonamiCode {
          */
         public Builder into(@NonNull View view) {
             rootView = (ViewGroup) view.getRootView();
+            return this;
+        }
+
+        public Builder withDrawerLayout(boolean hasDrawerLayout) {
+            this.hasDrawerLayout = hasDrawerLayout;
             return this;
         }
 
@@ -182,8 +189,14 @@ public class KonamiCode {
             directionsListener = new DirectionListener(dialog, swipeThreshold, swipeVelocityThreshold);
             gestureListener  = new GestureDetectorCompat(context, directionsListener);
 
-            // get the first child of the root view
-            View targetView = rootView.getChildAt(0);
+            View targetView;
+            if (hasDrawerLayout) {
+                DrawerLayout drawerLayout = (DrawerLayout) rootView.getChildAt(0);
+                targetView = drawerLayout.getChildAt(0);
+            } else {
+                targetView = rootView.getChildAt(0);
+            }
+
             targetView.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
