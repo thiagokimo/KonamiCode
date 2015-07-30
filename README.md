@@ -1,3 +1,5 @@
+#KonamiCode
+---
 Easy install of our favorite easter-egg!
 
 ![konami-code-tutorial](http://choconatos.com/home/wp-content/uploads/2013/11/Konami-Code.jpg)
