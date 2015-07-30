@@ -28,7 +28,7 @@ Add the dependency in the form:
 
 ```groovy
 dependencies {
-    compile 'com.github.thiagokimo:KonamiCode:1.1.1'
+    compile 'com.github.thiagokimo:KonamiCode:1.1.2'
 }
 ```
 
@@ -48,7 +48,7 @@ And them this into your dependencies
 <dependency>
     <groupId>com.github.thiagokimo</groupId>
     <artifactId>konami-code</artifactId>
-	<version>1.1.1</version>
+	<version>1.1.2</version>
 </dependency>
 ```
 ##How to use
@@ -61,7 +61,7 @@ new KonamiCode.Builder(context)
         .install();
 ```
 
-The library injects a [KonamiCodeLayout]() as the first child of your Activity's view. It listens your swipe events without harming
+The library injects a [KonamiCodeLayout](https://github.com/thiagokimo/KonamiCode/blob/master/library/src/main/java/io/kimo/konamicode/KonamiCodeLayout.java) as the first child of your Activity's view. It listens your swipe events without harming
  the touch events of the original view.
 
 For the first part of the Konami code, swipe into the correct directions. If you do it correctly,
