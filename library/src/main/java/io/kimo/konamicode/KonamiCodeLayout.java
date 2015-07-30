@@ -40,7 +40,6 @@ public class KonamiCodeLayout extends FrameLayout implements KonamiSequenceListe
 
     public static final String TAG = KonamiCodeLayout.class.getSimpleName();
 
-    //final callback
     private Callback mCallback;
 
     private AlertDialog buttonDialog;
@@ -90,20 +89,20 @@ public class KonamiCodeLayout extends FrameLayout implements KonamiSequenceListe
 
     public KonamiCodeLayout(Context context) {
         super(context);
-        initalizeValiables();
+        init();
     }
 
     public KonamiCodeLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
-        initalizeValiables();
+        init();
     }
 
     public KonamiCodeLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        initalizeValiables();
+        init();
     }
 
-    private void initalizeValiables() {
+    private void init() {
         ViewConfiguration viewConfiguration = ViewConfiguration.get(getContext());
         mSwipeThreshold = viewConfiguration.getScaledTouchSlop();
 
@@ -168,6 +167,17 @@ public class KonamiCodeLayout extends FrameLayout implements KonamiSequenceListe
         }
 
         return super.onInterceptTouchEvent(ev);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+
+        View child = getChildAt(0);
+        if(child == null) {
+            return false;
+        } else {
+            return child.dispatchTouchEvent(event);
+        }
     }
 
     @Override

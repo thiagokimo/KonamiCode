@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -87,13 +88,27 @@ public class KonamiCode {
             View currentView = rootView.getChildAt(0);
             rootView.removeView(currentView);
 
-            KonamiCodeLayout konamiCodeLayout = new KonamiCodeLayout(context);
-            konamiCodeLayout.addView(currentView);
-
-            rootView.addView(konamiCodeLayout, new FrameLayout.LayoutParams(
-                            ViewGroup.LayoutParams.MATCH_PARENT,
-                            ViewGroup.LayoutParams.MATCH_PARENT)
+            //match parent params
+            FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT
             );
+
+            FrameLayout gestureDelegate = new FrameLayout(context);
+            gestureDelegate.addView(currentView, layoutParams);
+
+            //necessary view that passes all touch events up to the parent viewgroup
+            gestureDelegate.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    return true;
+                }
+            });
+
+            KonamiCodeLayout konamiCodeLayout = new KonamiCodeLayout(context);
+            konamiCodeLayout.addView(gestureDelegate);
+
+            rootView.addView(konamiCodeLayout, layoutParams);
 
             konamiCodeLayout.setCallback(callback);
 
