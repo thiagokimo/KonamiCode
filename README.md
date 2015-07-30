@@ -61,6 +61,9 @@ new KonamiCode.Builder(context)
         .install();
 ```
 
+The library injects a [KonamiCodeLayout]() as the first child of your Activity's view. It listens your swipe events without harming
+ the touch events of the original view.
+
 For the first part of the Konami code, swipe into the correct directions. If you do it correctly,
 an AlertDialog with the buttons **A**, **B** and **START** will appear. Pressing them correctly will
 trigger the final callback.
