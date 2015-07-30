@@ -47,7 +47,7 @@ And them this into your dependencies
 ``` xml
 <dependency>
     <groupId>com.github.thiagokimo</groupId>
-    <artifactId>konami-code</artifactId>
+    <artifactId>KonamiCode</artifactId>
 	<version>1.1.2</version>
 </dependency>
 ```
