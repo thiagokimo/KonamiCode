@@ -17,6 +17,8 @@ import java.util.List;
 
 public class KonamiCodeLayout extends FrameLayout implements KonamiSequenceListener {
 
+    public static final String TAG = KonamiCodeLayout.class.getSimpleName();
+
     /**
      * Callback - Interface that's executed when the code finishes
      */
@@ -24,21 +26,16 @@ public class KonamiCodeLayout extends FrameLayout implements KonamiSequenceListe
         void onFinish();
     }
 
-    /**
-     * Enumeration of swipe directions
-     */
-    public enum Direction {
-        UP, DOWN, LEFT, RIGHT, NONE
-    }
+    public static final int NONE = -1;
 
-    /**
-     * Enumeration of the buttons
-     */
-    public enum Button {
-        A, B, START, NONE
-    }
+    public static final int UP = 0;
+    public static final int DOWN = 1;
+    public static final int LEFT = 2;
+    public static final int RIGHT = 3;
 
-    public static final String TAG = KonamiCodeLayout.class.getSimpleName();
+    public static final int A = 4;
+    public static final int B = 5;
+    public static final int START = 6;
 
     private Callback mCallback;
 
@@ -52,19 +49,19 @@ public class KonamiCodeLayout extends FrameLayout implements KonamiSequenceListe
             int id = v.getId();
 
             if(id == R.id.konami_button_a) {
-                mLastPressedButton = Button.A;
+                mLastPressedButton = A;
             } else if(id == R.id.konami_button_b) {
-                mLastPressedButton = Button.B;
+                mLastPressedButton = B;
             } else if(id == R.id.konami_button_start) {
-                mLastPressedButton = Button.START;
+                mLastPressedButton = START;
             }
 
             registerPress();
         }
     };
 
-    private Direction mLastSwipedDirection = Direction.NONE;
-    private Button mLastPressedButton = Button.NONE;
+    private int mLastSwipedDirection = NONE;
+    private int mLastPressedButton = NONE;
     private int mSwipeThreshold;
 
     private float mLastX;
@@ -72,20 +69,15 @@ public class KonamiCodeLayout extends FrameLayout implements KonamiSequenceListe
     private float mStartX;
     private float mStartY;
 
-    private List<Direction> mKonamiCodeDirectionsOrder = Arrays.asList(new Direction[]{
-            Direction.UP, Direction.UP,
-            Direction.DOWN, Direction.DOWN,
-            Direction.LEFT, Direction.RIGHT,
-            Direction.LEFT, Direction.RIGHT
-    });
+    private List<Integer> mKonamiCodeDirectionsOrder = Arrays.asList(
+            UP, UP, DOWN, DOWN, LEFT, RIGHT, LEFT, RIGHT
+    );
+    private List<Integer> mKonamiCodeButtonsOrder = Arrays.asList(
+            B, A, START
+    );
 
-
-    private List<Button> mKonamiCodeButtonsOrder = Arrays.asList(new Button[] {
-            Button.B, Button.A, Button.START
-    });
-
-    private List<Direction> mSwipes = new ArrayList<>();
-    private List<Button> mPressedButtons = new ArrayList<>();
+    private List<Integer> mSwipes = new ArrayList<>();
+    private List<Integer> mPressedButtons = new ArrayList<>();
 
     public KonamiCodeLayout(Context context) {
         super(context);
@@ -147,17 +139,17 @@ public class KonamiCodeLayout extends FrameLayout implements KonamiSequenceListe
                 if (Math.abs(diffX) > Math.abs(diffY)) {
                     if (Math.abs(diffX) > mSwipeThreshold) {
                         if (diffX > 0) {
-                            mLastSwipedDirection = Direction.RIGHT;
+                            mLastSwipedDirection = RIGHT;
                         } else {
-                            mLastSwipedDirection = Direction.LEFT;
+                            mLastSwipedDirection = LEFT;
                         }
                     }
                 }
                 else if (Math.abs(diffY) > mSwipeThreshold) {
                     if (diffY > 0) {
-                        mLastSwipedDirection = Direction.DOWN;
+                        mLastSwipedDirection = DOWN;
                     } else {
-                        mLastSwipedDirection = Direction.UP;
+                        mLastSwipedDirection = UP;
                     }
                 }
                 break;
@@ -188,10 +180,10 @@ public class KonamiCodeLayout extends FrameLayout implements KonamiSequenceListe
     @Override
     public boolean validSwipeSequence() {
         int index = mSwipes.size()-1;
-        Direction correctDirection = mKonamiCodeDirectionsOrder.get(index);
-        Direction lastDirection = mSwipes.get(index);
+        int correctDirection = mKonamiCodeDirectionsOrder.get(index);
+        int lastDirection = mSwipes.get(index);
 
-        return correctDirection.equals(lastDirection);
+        return correctDirection == lastDirection;
     }
 
     @Override
@@ -208,10 +200,10 @@ public class KonamiCodeLayout extends FrameLayout implements KonamiSequenceListe
     public boolean validPressedSequence() {
         int index = mPressedButtons.size()-1;
 
-        Button currentPressedButton = mPressedButtons.get(index);
-        Button correctPressedButton = mKonamiCodeButtonsOrder.get(index);
+        int correctPressedButton = mKonamiCodeButtonsOrder.get(index);
+        int lastPressedButton = mPressedButtons.get(index);
 
-        return currentPressedButton.equals(correctPressedButton);
+        return lastPressedButton == correctPressedButton;
     }
 
     @Override
@@ -224,7 +216,7 @@ public class KonamiCodeLayout extends FrameLayout implements KonamiSequenceListe
     }
 
     private void registerSwipe() {
-        if(mLastSwipedDirection != Direction.NONE) {
+        if(mLastSwipedDirection != NONE) {
             mSwipes.add(mLastSwipedDirection);
 
             if(!validSwipeSequence()) {
@@ -239,11 +231,12 @@ public class KonamiCodeLayout extends FrameLayout implements KonamiSequenceListe
     }
 
     private void registerPress() {
-        if(mLastPressedButton != Button.NONE) {
+        if(mLastPressedButton != NONE) {
             mPressedButtons.add(mLastPressedButton);
 
             if(!validPressedSequence()) {
                 resetPressedSequence();
+                buttonDialog.dismiss();
             } else {
                 if(onPressedSequenceAchieved()) {
                     triggerFinalCallback();
