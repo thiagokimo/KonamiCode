@@ -13,8 +13,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        new KonamiCode.Builder(this)
-                .into(this)
+        new KonamiCode.Installer(this)
+                .on(this)
                 .install();
     }
 }

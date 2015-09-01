@@ -25,13 +25,13 @@ public class KonamiCode {
         return mRootView;
     }
 
-    private KonamiCode(@NonNull Builder builder) {
-        this.mContext = builder.context;
-        this.mRootView = builder.rootView;
-        this.mCallback = builder.callback;
+    private KonamiCode(@NonNull Installer installer) {
+        this.mContext = installer.context;
+        this.mRootView = installer.rootView;
+        this.mCallback = installer.callback;
     }
 
-    public static class Builder {
+    public static class Installer {
         protected Context context;
         protected ViewGroup rootView;
         protected KonamiCodeLayout.Callback callback;
@@ -40,15 +40,15 @@ public class KonamiCode {
          * Konami Code's builder
          * @param context
          */
-        public Builder(@NonNull Context context) {
+        public Installer(@NonNull Context context) {
             this.context = context;
         }
 
         /**
-         * into - installs into an activity
+         * on - installs into an activity
          * @param activity
          */
-        public Builder into(@NonNull Activity activity) {
+        public Installer on(@NonNull Activity activity) {
             rootView = (ViewGroup) activity.findViewById(android.R.id.content);
             return this;
         }
@@ -57,7 +57,7 @@ public class KonamiCode {
          * into - installs into a fragment
          * @param fragment
          */
-        public Builder into(@NonNull Fragment fragment) {
+        public Installer on(@NonNull Fragment fragment) {
             rootView = (ViewGroup) fragment.getView().getRootView();
             return this;
         }
@@ -66,7 +66,7 @@ public class KonamiCode {
          * into - installs into a view
          * @param view
          */
-        public Builder into(@NonNull View view) {
+        public Installer on(@NonNull View view) {
             rootView = (ViewGroup) view.getRootView();
             return this;
         }
@@ -75,7 +75,7 @@ public class KonamiCode {
          * withCallback - interface executed after the whole code is executed
          * @param callback
          */
-        public Builder withCallback(@NonNull KonamiCodeLayout.Callback callback) {
+        public Installer callback(@NonNull KonamiCodeLayout.Callback callback) {
             this.callback = callback;
             return this;
         }

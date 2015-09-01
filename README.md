@@ -30,7 +30,7 @@ Add the dependency in the form:
 
 ```groovy
 dependencies {
-    compile 'com.github.thiagokimo:KonamiCode:1.1.2'
+    compile 'com.github.thiagokimo:KonamiCode:1.1.3'
 }
 ```
 
@@ -50,7 +50,7 @@ And them this into your dependencies
 <dependency>
     <groupId>com.github.thiagokimo</groupId>
     <artifactId>KonamiCode</artifactId>
-	<version>1.1.2</version>
+	<version>1.1.3</version>
 </dependency>
 ```
 ##How to use
@@ -58,8 +58,8 @@ And them this into your dependencies
 Add the following code in your Activity:
 
 ``` java
-new KonamiCode.Builder(context)
-        .into(activity-or-fragment-or-view)
+new KonamiCode.Installer(context)
+        .on(activity-or-fragment-or-view)
         .install();
 ```
 
@@ -73,9 +73,9 @@ trigger the final callback.
 By default a callback with a Toast message will appear. You can customize the final callback by yourself:
 
 ``` java
-new KonamiCode.Builder(context)
-        .into(activity-or-fragment-or-view)
-        .withCallback(new KonamiCode.Callback() {
+new KonamiCode.Installer(context)
+        .on(activity-or-fragment-or-view)
+        .callback(new KonamiCode.Callback() {
             @Override
             public void onFinish() {
                 //whatever
