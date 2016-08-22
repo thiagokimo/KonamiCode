@@ -1,9 +1,11 @@
 package io.kimo.konamicode;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v4.view.MotionEventCompat;
-import android.support.v7.app.AlertDialog;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,8 +19,6 @@ import java.util.List;
 
 public class KonamiCodeLayout extends FrameLayout implements KonamiSequenceListener {
 
-    public static final String TAG = KonamiCodeLayout.class.getSimpleName();
-
     /**
      * Callback - Interface that's executed when the code finishes
      */
@@ -26,58 +26,59 @@ public class KonamiCodeLayout extends FrameLayout implements KonamiSequenceListe
         void onFinish();
     }
 
-    public static final int NONE = -1;
+    /**
+     * Enumeration of swipe directions
+     */
+    public enum Direction {
+        UP, DOWN, LEFT, RIGHT, NONE
+    }
 
-    public static final int UP = 0;
-    public static final int DOWN = 1;
-    public static final int LEFT = 2;
-    public static final int RIGHT = 3;
+    /**
+     * Enumeration of the buttons
+     */
+    public enum Button {
+        A, B, START, NONE
+    }
 
-    public static final int A = 4;
-    public static final int B = 5;
-    public static final int START = 6;
+    public static final String TAG = KonamiCodeLayout.class.getSimpleName();
 
     private Callback mCallback;
 
     private AlertDialog buttonDialog;
-    private View aButton;
-    private View bButton;
-    private View startButton;
     private OnClickListener buttonsClickListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
             int id = v.getId();
 
             if(id == R.id.konami_button_a) {
-                mLastPressedButton = A;
+                mLastPressedButton = Button.A;
             } else if(id == R.id.konami_button_b) {
-                mLastPressedButton = B;
+                mLastPressedButton = Button.B;
             } else if(id == R.id.konami_button_start) {
-                mLastPressedButton = START;
+                mLastPressedButton = Button.START;
             }
 
             registerPress();
         }
     };
 
-    private int mLastSwipedDirection = NONE;
-    private int mLastPressedButton = NONE;
+    private Direction mLastSwipedDirection = Direction.NONE;
+    private Button mLastPressedButton = Button.NONE;
     private int mSwipeThreshold;
 
     private float mLastX;
     private float mLastY;
-    private float mStartX;
-    private float mStartY;
 
-    private List<Integer> mKonamiCodeDirectionsOrder = Arrays.asList(
-            UP, UP, DOWN, DOWN, LEFT, RIGHT, LEFT, RIGHT
-    );
-    private List<Integer> mKonamiCodeButtonsOrder = Arrays.asList(
-            B, A, START
-    );
+    private List<Direction> mKonamiCodeDirectionsOrder = Arrays.asList(Direction.UP, Direction.UP,
+            Direction.DOWN, Direction.DOWN,
+            Direction.LEFT, Direction.RIGHT,
+            Direction.LEFT, Direction.RIGHT);
 
-    private List<Integer> mSwipes = new ArrayList<>();
-    private List<Integer> mPressedButtons = new ArrayList<>();
+
+    private List<Button> mKonamiCodeButtonsOrder = Arrays.asList(Button.B, Button.A, Button.START);
+
+    private List<Direction> mSwipes = new ArrayList<>();
+    private List<Button> mPressedButtons = new ArrayList<>();
 
     public KonamiCodeLayout(Context context) {
         super(context);
@@ -100,9 +101,9 @@ public class KonamiCodeLayout extends FrameLayout implements KonamiSequenceListe
 
         View buttonsView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_buttons, this, false);
 
-        aButton = buttonsView.findViewById(R.id.konami_button_a);
-        bButton = buttonsView.findViewById(R.id.konami_button_b);
-        startButton = buttonsView.findViewById(R.id.konami_button_start);
+        View aButton = buttonsView.findViewById(R.id.konami_button_a);
+        View bButton = buttonsView.findViewById(R.id.konami_button_b);
+        View startButton = buttonsView.findViewById(R.id.konami_button_start);
 
         aButton.setOnClickListener(buttonsClickListener);
         bButton.setOnClickListener(buttonsClickListener);
@@ -118,8 +119,19 @@ public class KonamiCodeLayout extends FrameLayout implements KonamiSequenceListe
     }
 
     @Override
-    public boolean onInterceptTouchEvent(MotionEvent ev) {
+    public boolean onTouchEvent(MotionEvent event) {
 
+        View child = getChildAt(0);
+        return child != null && child.dispatchTouchEvent(event);
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        processTouches(ev);
+        return super.dispatchTouchEvent(ev);
+    }
+
+    private void processTouches(@NonNull MotionEvent ev) {
         int action = MotionEventCompat.getActionMasked(ev);
 
         switch (action) {
@@ -128,8 +140,6 @@ public class KonamiCodeLayout extends FrameLayout implements KonamiSequenceListe
                 mLastX = ev.getX();
                 mLastY = ev.getY();
 
-                mStartX = mLastX;
-                mStartY = mLastY;
                 break;
             case MotionEvent.ACTION_MOVE:
 
@@ -139,36 +149,23 @@ public class KonamiCodeLayout extends FrameLayout implements KonamiSequenceListe
                 if (Math.abs(diffX) > Math.abs(diffY)) {
                     if (Math.abs(diffX) > mSwipeThreshold) {
                         if (diffX > 0) {
-                            mLastSwipedDirection = RIGHT;
+                            mLastSwipedDirection = Direction.RIGHT;
                         } else {
-                            mLastSwipedDirection = LEFT;
+                            mLastSwipedDirection = Direction.LEFT;
                         }
                     }
                 }
                 else if (Math.abs(diffY) > mSwipeThreshold) {
                     if (diffY > 0) {
-                        mLastSwipedDirection = DOWN;
+                        mLastSwipedDirection = Direction.DOWN;
                     } else {
-                        mLastSwipedDirection = UP;
+                        mLastSwipedDirection = Direction.UP;
                     }
                 }
                 break;
             case MotionEvent.ACTION_UP:
                 registerSwipe();
                 break;
-        }
-
-        return super.onInterceptTouchEvent(ev);
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-
-        View child = getChildAt(0);
-        if(child == null) {
-            return false;
-        } else {
-            return child.dispatchTouchEvent(event);
         }
     }
 
@@ -180,10 +177,10 @@ public class KonamiCodeLayout extends FrameLayout implements KonamiSequenceListe
     @Override
     public boolean validSwipeSequence() {
         int index = mSwipes.size()-1;
-        int correctDirection = mKonamiCodeDirectionsOrder.get(index);
-        int lastDirection = mSwipes.get(index);
+        Direction correctDirection = mKonamiCodeDirectionsOrder.get(index);
+        Direction lastDirection = mSwipes.get(index);
 
-        return correctDirection == lastDirection;
+        return correctDirection.equals(lastDirection);
     }
 
     @Override
@@ -200,10 +197,10 @@ public class KonamiCodeLayout extends FrameLayout implements KonamiSequenceListe
     public boolean validPressedSequence() {
         int index = mPressedButtons.size()-1;
 
-        int correctPressedButton = mKonamiCodeButtonsOrder.get(index);
-        int lastPressedButton = mPressedButtons.get(index);
+        Button currentPressedButton = mPressedButtons.get(index);
+        Button correctPressedButton = mKonamiCodeButtonsOrder.get(index);
 
-        return lastPressedButton == correctPressedButton;
+        return currentPressedButton.equals(correctPressedButton);
     }
 
     @Override
@@ -216,10 +213,12 @@ public class KonamiCodeLayout extends FrameLayout implements KonamiSequenceListe
     }
 
     private void registerSwipe() {
-        if(mLastSwipedDirection != NONE) {
+        if(mLastSwipedDirection != Direction.NONE) {
+            Log.d(TAG, "registerSwipe: "+mLastSwipedDirection);
             mSwipes.add(mLastSwipedDirection);
 
             if(!validSwipeSequence()) {
+                Log.d(TAG, "Invalid swipe sequence");
                 resetSwipeSequence();
             } else {
                 if(onSwipeSequenceAchieved()) {
@@ -231,10 +230,11 @@ public class KonamiCodeLayout extends FrameLayout implements KonamiSequenceListe
     }
 
     private void registerPress() {
-        if(mLastPressedButton != NONE) {
+        if(mLastPressedButton != Button.NONE) {
             mPressedButtons.add(mLastPressedButton);
 
             if(!validPressedSequence()) {
+                Log.d(TAG, "Invalid button sequence!");
                 resetPressedSequence();
                 buttonDialog.dismiss();
             } else {
