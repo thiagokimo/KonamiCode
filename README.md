@@ -1,4 +1,4 @@
-#KonamiCode
+# KonamiCode
 ---
 Easy install of our favorite easter-egg!
 
@@ -7,14 +7,14 @@ Easy install of our favorite easter-egg!
 ![JitPack Badge](https://img.shields.io/github/release/thiagokimo/KonamiCode.svg?label=JitPack)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-KonamiCode-green.svg?style=flat)](https://android-arsenal.com/details/1/2202)
 
-##Preview
+## Preview
 [![Get it on Google Play](http://www.android.com/images/brand/get_it_on_play_logo_small.png)](https://play.google.com/store/apps/details?id=io.kimo.konami)
 
 [![a screenshot](https://raw.githubusercontent.com/thiagokimo/KonamiCode/master/assets/konami-code-screenshot.png)](https://youtu.be/vIRdoI-V-Pk)
 
 
-##Inculde in your project
-###Gradle
+## Inculde in your project
+### Gradle
 
 Add the JitPack repository to your build file:
 
@@ -34,7 +34,7 @@ dependencies {
 }
 ```
 
-###Maven
+### Maven
 
 If you use Maven, add this into your build file:
 
@@ -53,7 +53,7 @@ And them this into your dependencies
 	<version>1.1.6</version>
 </dependency>
 ```
-##How to use
+## How to use
 
 Add the following code in your Activity:
 
@@ -84,21 +84,21 @@ new KonamiCode.Installer(context)
         .install();
 ```
 
-###Attention
+### Attention
 Make sure you add this **AFTER** your view is set, otherwise it won't listen to your swipes. KonamiCode adds a swipe listener into the root view of your Activity.
 
-##Contribuiting
+## Contribuiting
 
 1. Fork it
 2. Create your feature/bug-fix branch(`git checkout -b my-new-feature-or-fix`)
 3. Commit your changes (`git commit -am 'Add some feature/fix'`)
 4. Do your pull-request
 
-##Developed by
+## Developed by
 
 * Thiago Rocha - http://kimo.io - <kimo@kimo.io>
 
-##License
+## License
 
     Copyright 2011, 2012 Thiago Rocha
 
