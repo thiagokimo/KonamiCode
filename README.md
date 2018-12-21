@@ -75,7 +75,7 @@ By default a callback with a Toast message will appear. You can customize the fi
 ``` java
 new KonamiCode.Installer(context)
         .on(activity-or-fragment-or-view)
-        .callback(new KonamiCode.Callback() {
+        .callback(new KonamiCodeLayout.Callback() {
             @Override
             public void onFinish() {
                 //whatever
