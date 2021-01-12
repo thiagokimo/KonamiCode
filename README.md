@@ -2,13 +2,13 @@
 ---
 Easy install of our favorite easter-egg!
 
-![konami-code-tutorial](http://choconatos.com/home/wp-content/uploads/2013/11/Konami-Code.jpg)
+![konami-code-tutorial](https://static.wikia.nocookie.net/logopedia/images/d/dc/Konami_1986.svg/revision/latest/scale-to-width-down/200?cb=20200722095647)
 
 ![JitPack Badge](https://img.shields.io/github/release/thiagokimo/KonamiCode.svg?label=JitPack)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-KonamiCode-green.svg?style=flat)](https://android-arsenal.com/details/1/2202)
 
 ## Preview
-[![Get it on Google Play](http://www.android.com/images/brand/get_it_on_play_logo_small.png)](https://play.google.com/store/apps/details?id=io.kimo.konami)
+[![Get it on Google Play](https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png)](https://play.google.com/store/apps/details?id=io.kimo.konami)
 
 [![a screenshot](https://raw.githubusercontent.com/thiagokimo/KonamiCode/master/assets/konami-code-screenshot.png)](https://youtu.be/vIRdoI-V-Pk)
 
